@@ -1,6 +1,6 @@
 # HTML Zoomify
 
-Use this template to export zoomified images an HTML renderer directly from Photoshop. Detailed instructions and samples available at:
+Use this template to export zoomified images with an HTML renderer directly from Photoshop. Detailed instructions and samples available at:
 http://www.tricedesigns.com/2013/10/17/photoshop-zoomify-in-html-powered-by-leaflet/
 
 Just add the following files to the "Presets/Zoomify" directory inside of your Photoshop installation, and then restart Photoshop.  On OS X, with the default configuration, these files should be located in /Applications/Adobe Photoshop CC/Presets/Zoomify
