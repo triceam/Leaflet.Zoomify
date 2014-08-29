@@ -5,7 +5,9 @@
 L.TileLayer.Zoomify = L.TileLayer.extend({
 	options: {
 		continuousWorld: true,
-		tolerance: 0.8
+		tolerance: 0.8,
+		zoom: false,
+		center: false
 	},
 
 	initialize: function (url, options) {
@@ -33,12 +35,17 @@ L.TileLayer.Zoomify = L.TileLayer.extend({
 	onAdd: function (map) {
 		L.TileLayer.prototype.onAdd.call(this, map);
 
-		var mapSize = map.getSize(),
-			zoom = this._getBestFitZoom(mapSize),
-			imageSize = this._imageSize[zoom],
-			center = map.options.crs.pointToLatLng(L.point(imageSize.x / 2, imageSize.y / 2), zoom);
+        if (this.options.zoom === false) {
+            var mapSize = map.getSize();
+            this.options.zoom = this._getBestFitZoom(mapSize);
+        }
 
-		map.setView(center, zoom, true);
+        if (this.options.center === false) {
+            var imageSize = this._imageSize[this.options.zoom];
+            this.options.center = map.options.crs.pointToLatLng(L.point(imageSize.x / 2, imageSize.y / 2), this.options.zoom);
+        }
+
+        map.setView(this.options.center, this.options.zoom, true);
 	},
 
 	_getGridSize: function (imageSize) {
