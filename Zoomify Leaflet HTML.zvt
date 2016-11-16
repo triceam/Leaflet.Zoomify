@@ -6,7 +6,7 @@ $%$.html
 <head>
     <meta charset="utf-8">
     <title>$%$(TilePath)</title>
-    <link rel="stylesheet" href="   leaflet.css" />
+    <link rel="stylesheet" href="$%$(TilePath)/leaflet.css" />
     <!--[if lte IE 8]>
         <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.ie.css" />
     <![endif]-->
@@ -22,8 +22,8 @@ $%$.html
 
 <body>
     <div id="photo"></div>
-    <script src="leaflet.js"></script>
-    <script type="text/javascript" src="L.TileLayer.Zoomify.js"></script>  
+    <script src="$%$(TilePath)/leaflet.js"></script>
+    <script type="text/javascript" src="$%$(TilePath)/L.TileLayer.Zoomify.js"></script>  
     <script type="text/javascript">
 
         var map = L.map('photo').setView(new L.LatLng(0,0), 0);
@@ -38,10 +38,6 @@ $%$.html
     </script>
 </body>
 </html>
-
-
-
-
 
 $%$"ExportScript.jsx"
 //This code exports the current document as a folder of Zoomify tiles.
@@ -115,10 +111,7 @@ function MakeTileName(zoomifyLevel, zoomifyX, zoomifyY )
 		
 	tileName += ((zoomifyY % 10));
 	
-	//alert(tileName);
-	
 	return tileName;
-
 }
 
 function WriteStringToFile(outText, outPath)
@@ -147,7 +140,6 @@ function CreateObjectContent()
 	var optimized = true;
 	var sharpen = true;
 	var useCache = false;  //This tells Photoshop to cache the scaled version of the image it uses to generate this tile.  We should set this to false on the very last tile to clear the cache
-	
 	
 	//Pick up our globals
 	if(typeof(gFolderString) != "undefined")
@@ -206,11 +198,8 @@ function CreateObjectContent()
 	
 	numLevels++;
 	
-	//alert(numLevels);
-	
 	currentWidth = baseWidth;
 	currentHeight = baseHeight;
-	
 	
 	var tileGroup, tileGroupPath, tileGroupFolder;
 	var tileScale = 1;	
@@ -234,7 +223,6 @@ function CreateObjectContent()
 			{
 			for(x = 0; x < xTiles[level]; x++)
 				{
-				
 				tileGroup = Math.floor(tileCounter/256);
 				tileGroupPath = exportFolderPath + "TileGroup" + tileGroup + "/";
 				tileGroupFolder = new Folder(tileGroupPath);
@@ -290,7 +278,6 @@ function CreateObjectContent()
 	clearCache = true;
 	ExportTileAsJPEG(tileName, tileGroupPath, tileRect, quality, optimized, width, height, sharpen, useCache, clearCache);
 	
-	
 	var imageProperties = "<IMAGE_PROPERTIES WIDTH='" + baseWidth + "' HEIGHT='" + baseHeight + "' NUMTILES='" + numTiles + "' NUMIMAGES='1' VERSION='1.8' TILESIZE='256' />";
 	var propertiesFileName = exportFolderPath + "ImageProperties.xml";
 	WriteStringToFile(imageProperties, propertiesFileName);
@@ -300,12 +287,7 @@ function CreateObjectContent()
 
 CreateObjectContent();
 
-//This line copies the zoomifyViewer.swf to the destination directory
-
-
-$%${leaflet.js}
-$%${leaflet.css}
-$%${L.TileLayer.Zoomify.js}
-
-
-
+//These lines copy the leaflet assets to the destination image subdirectory
+$%$[leaflet.js]
+$%$[leaflet.css]
+$%$[L.TileLayer.Zoomify.js]
